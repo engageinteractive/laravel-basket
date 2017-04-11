@@ -6,7 +6,7 @@ trait QuantityValidator
 {
 	protected function isInvalidQuantity($quantity)
 	{
-		return (!$this->isWhole($quantity) && $quantity < 0);
+		return (!$this->isWhole($quantity) || $quantity < 0);
 	}
 
 	protected function isValidQuantity($quantity)
