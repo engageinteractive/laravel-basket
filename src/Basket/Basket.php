@@ -267,10 +267,10 @@ class Basket implements BasketContract
 	{
 		$quantity = 0;
 
-		array_walk($this->items, function($item) use (&$quantity)
+		foreach ($this->items as $item)
 		{
 			$quantity += $item->getQuantity();
-		});
+		};
 
 		return $quantity;
 	}

@@ -3,6 +3,8 @@
 namespace ChrisWillerton\LaravelBasket\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use ChrisWillerton\LaravelBasket\DataDrivers\Database;
+use ChrisWillerton\LaravelBasket\Basket\Basket;
 
 class LaravelBasketServiceProvider extends ServiceProvider
 {
@@ -18,16 +20,21 @@ class LaravelBasketServiceProvider extends ServiceProvider
 
 		// Publish the config files
 		$this->publishes([
-			__DIR__ . '/../../config/config.php' => config_path('laravel-basket/main.php'),
-		]);
+			__DIR__ . '/../../config/config.php' => config_path('laravel-basket.php'),
+		], 'laravel-basket-config');
+
+		// Publish the migrations
+		$this->publishes([
+	        __DIR__ . '/../../migrations/' => database_path('migrations')
+	    ], 'laravel-basket-migrations');
 
 		// Bind LaravelBasket to the container
 		$this->app->singleton('LaravelBasket', function($app)
 		{
-		    $driver = app()->make(Database::class, ['laravel-basket-key']);
-		    $vat_rate = config('laravel-basket.main.vat_rate') ?: null;
+			$config = config('laravel-basket');
+		    $vat_rate = $config['vat_rate'] ?: null;
 
-		    $basket = app()->make(Basket::class, [$driver, $vat_rate]);
+		    $basket = new Basket(new Database($config['cookie_key']), $vat_rate);
 
 		    return $basket;
 		});

@@ -51,8 +51,7 @@ class Database implements DataDriverContract
 
 		if ($basket_key)
 		{
-			$storage = BasketStorage::whereKey($basket_key)->first();
-
+			$storage = BasketStorage::where('key', $basket_key)->first();
 			return $storage ? json_decode($storage->payload, true) : [];
 		}
 
@@ -73,7 +72,7 @@ class Database implements DataDriverContract
 		]);
 
 		$storage->payload = json_encode($data);
-		$storage->ip_address = $_SERVER['REMOTE_ADDR'];
+		$storage->ip_address = request()->ip();
 		$storage->expiry = $this->settings['expire'];
 
 		$storage->save();
