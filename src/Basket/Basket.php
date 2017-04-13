@@ -18,8 +18,8 @@ class Basket implements BasketContract
 
 	protected $driver;
 	protected $vat_calculator;
+	protected $currency_code;
 	protected $vat_rate = 0;
-	protected $currency_code = 'GBP';
 	protected $items = [];
 	protected $delivery_option = false;
 	protected $promo_code = false;
@@ -35,6 +35,8 @@ class Basket implements BasketContract
 		}
 
 		$this->vat_calculator = new VatCalculator($this->vat_rate);
+
+		$this->setCurrencyCode(config('laravel-basket.currency_code'));
 
 		$this->retrieveBasket();
 	}

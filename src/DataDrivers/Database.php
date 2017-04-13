@@ -7,20 +7,13 @@ use ChrisWillerton\LaravelBasket\Contracts\DataDriverContract;
 class Database implements DataDriverContract
 {
 	protected $key;
-
 	protected $settings;
-	protected $defaults = [
-		'path'      =>   "/",
-		'domain'    =>   false,
-		'secure'    =>   false,
-		'httponly'  =>   true
-	];
 
-	public function __construct($key, $settings = [])
+	public function __construct($key)
 	{
 		$this->key = $key;
-		$this->defaults['expire'] = time() + 259200;
-		$this->settings = array_merge($this->defaults, $settings);
+		$this->settings = config('laravel-basket.cookie_settings');
+		$this->settings['expire'] = time() + config('laravel-basket.lifetime');
 	}
 
 	protected function getCookie()

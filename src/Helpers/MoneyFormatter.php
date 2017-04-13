@@ -6,13 +6,12 @@ class MoneyFormatter
 {
 	protected $base_price;
 	protected $unformatted_price;
-	protected $default_locale = 'en_GB.UTF-8';
 
 	public function __construct($base_price)
 	{
 		$this->base_price = (int) $base_price;
 		$this->unformatted_price = $this->base_price / 100;
-		$this->setlocale($this->default_locale);
+		$this->setlocale(config('laravel-basket.locale'));
 	}
 
 	public function getBasePrice()
@@ -32,7 +31,7 @@ class MoneyFormatter
 
 	public function getFormattedPrice()
 	{
-		return $this->format('%.2n', $this->getUnformattedPrice());
+		return $this->format(config('laravel-basket.money_format'), $this->getUnformattedPrice());
 	}
 
 	public function setlocale($locale)
