@@ -13,10 +13,6 @@ class LaravelBasketServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$request = $this->app->make('request');
-		$config = $this->app->make('config');
-
-		// Load in the helpers file
-		require_once __DIR__ . '/../../helpers/helpers.php';
 
 		// Publish the config files
 		$this->publishes([
@@ -27,7 +23,10 @@ class LaravelBasketServiceProvider extends ServiceProvider
 		$this->publishes([
 	        __DIR__ . '/../../migrations/' => database_path('migrations')
 	    ], 'laravel-basket-migrations');
+	}
 
+	public function register()
+	{
 		// Bind LaravelBasket to the container
 		$this->app->singleton('LaravelBasket', function($app)
 		{
@@ -39,6 +38,4 @@ class LaravelBasketServiceProvider extends ServiceProvider
 		    return $basket;
 		});
 	}
-
-	public function register(){}
 }

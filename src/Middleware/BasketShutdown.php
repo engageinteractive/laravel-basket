@@ -10,7 +10,7 @@ class BasketShutdown
     {
         $response = $next($request);
 
-        laravel_basket()->shutdown();
+        app('LaravelBasket')->shutdown();
 
         return $response;
     }
