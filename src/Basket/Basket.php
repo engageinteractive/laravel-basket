@@ -24,6 +24,7 @@ class Basket implements BasketContract
 	protected $delivery_option = false;
 	protected $promo_code = false;
 	protected $errors = [];
+	protected $event_namespace;
 
 	public function __construct(DataDriverContract $driver, $vat_rate = null)
 	{
@@ -38,7 +39,11 @@ class Basket implements BasketContract
 
 		$this->setCurrencyCode(config('laravel-basket.currency_code'));
 
+		$this->event_namespace = config('laravel-basket.event_namespace');
+
 		$this->retrieveBasket();
+
+		event($this->event_namespace . '.constructed', $this);
 	}
 
 	public function getDriver()
@@ -89,7 +94,7 @@ class Basket implements BasketContract
 	{
 		if ($this->delivery_option)
 		{
-			if ($this->promo_code && $this->promo_code->hasFreeDelivery())
+			if ($this->promo_code && $this->promo_code->hasFreeDelivery($this))
 			{
 				return new MoneyFormatter(0);
 			}
@@ -197,6 +202,8 @@ class Basket implements BasketContract
 			$item->setCreatedAt($created_at);
 		}
 
+		event($this->event_namespace . '.addItem', [$this, $item]);
+
 		return $this;
 	}
 
@@ -222,6 +229,8 @@ class Basket implements BasketContract
 			{
 				$this->removeItem($id);
 			}
+
+			event($this->event_namespace . '.itemUpdated', [$this, $item]);
 		}
 
 		return $this;
@@ -232,6 +241,8 @@ class Basket implements BasketContract
 		if (isset($this->items[$id]))
 		{
 			$item = $this->items[$id];
+
+			event($this->event_namespace . '.removeItem', [$this, $item]);
 
 			if ($quantity)
 			{
@@ -261,6 +272,8 @@ class Basket implements BasketContract
 	public function emptyItems()
 	{
 		$this->items = [];
+
+		event($this->event_namespace . '.empty', $this);
 
 		return $this;
 	}
@@ -366,6 +379,8 @@ class Basket implements BasketContract
 		$this->promo_code = false;
 
 		$this->driver->cleanupData();
+
+		event($this->event_namespace . '.clear', $this);
 	}
 
 	public function shutdown()
@@ -434,6 +449,8 @@ class Basket implements BasketContract
 			}
 		}
 
+		event($this->event_namespace . '.retrieve', $this);
+
 		return $this;
 	}
 
@@ -472,6 +489,8 @@ class Basket implements BasketContract
 		}
 
 		$this->driver->setData($basket);
+
+		event($this->event_namespace . '.store', $this);
 
 		return $this;
 	}

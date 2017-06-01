@@ -8,12 +8,14 @@ class Database implements DataDriverContract
 {
 	protected $key;
 	protected $settings;
+	protected $event_namespace;
 
 	public function __construct($key)
 	{
 		$this->key = $key;
 		$this->settings = config('laravel-basket.cookie_settings');
 		$this->settings['expire'] = time() + config('laravel-basket.lifetime');
+		$this->event_namespace = config('laravel-basket.event_namespace');
 	}
 
 	protected function getCookie()
@@ -68,7 +70,11 @@ class Database implements DataDriverContract
 		$storage->ip_address = request()->ip();
 		$storage->expiry = $this->settings['expire'];
 
+		event($this->event_namespace . '.savingData', $storage);
+
 		$storage->save();
+
+		event($this->event_namespace . '.savedData', $storage);
 
 		return $this;
 	}
@@ -83,7 +89,11 @@ class Database implements DataDriverContract
 
 			if ($storage)
 			{
+				event($this->event_namespace . '.cleaningData', $storage);
+
 				$storage->delete();
+
+				event($this->event_namespace . '.cleanedData', $storage);
 			}
 		}
 

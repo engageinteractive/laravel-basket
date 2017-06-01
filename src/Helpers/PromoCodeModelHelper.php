@@ -46,7 +46,7 @@ trait PromoCodeModelHelper
 		return $this->discount_type;
 	}
 
-	public function hasFreeDelivery()
+	public function hasFreeDelivery(BasketContract $basket)
 	{
 		return $this->free_delivery ? true : false;
 	}

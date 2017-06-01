@@ -45,8 +45,8 @@ class PromoCode
 		return $this->instance->getDiscountType();
 	}
 
-	public function hasFreeDelivery()
+	public function hasFreeDelivery(BasketContract $basket)
 	{
-		return $this->instance->hasFreeDelivery();
+		return $this->instance->hasFreeDelivery($basket);
 	}
 }
