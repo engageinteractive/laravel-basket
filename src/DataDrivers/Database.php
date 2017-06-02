@@ -65,7 +65,8 @@ class Database implements DataDriverContract
 		$storage = BasketStorage::firstOrNew([
 			'key' => $basket_key
 		]);
-
+		
+		$storage->key = $basket_key;
 		$storage->payload = json_encode($data);
 		$storage->ip_address = request()->ip();
 		$storage->expiry = $this->settings['expire'];
