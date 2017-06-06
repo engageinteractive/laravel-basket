@@ -2,6 +2,7 @@
 
 namespace ChrisWillerton\LaravelBasket\Basket;
 
+use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
 use ChrisWillerton\LaravelBasket\Contracts\DeliveryOptionContract;
 use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
 
@@ -37,5 +38,10 @@ class DeliveryOption
 	public function getFreeDeliveryThreshold()
 	{
 		return $this->instance->getFreeDeliveryThreshold();
+	}
+
+	public function hasFreeDelivery(BasketContract $basket)
+	{
+		return $this->instance->hasFreeDelivery($basket);
 	}
 }

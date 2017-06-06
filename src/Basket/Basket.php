@@ -94,7 +94,7 @@ class Basket implements BasketContract
 	{
 		if ($this->delivery_option)
 		{
-			if ($this->promo_code && $this->promo_code->hasFreeDelivery($this))
+			if ($this->delivery_option->hasFreeDelivery($this) || ($this->promo_code && $this->promo_code->hasFreeDelivery($this)))
 			{
 				return new MoneyFormatter(0);
 			}

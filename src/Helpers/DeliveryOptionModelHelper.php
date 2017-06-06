@@ -31,6 +31,12 @@ trait DeliveryOptionModelHelper
 		return !is_null($this->free_delivery_threshold) ? $this->free_delivery_threshold : false;
 	}
 
+	public function hasFreeDelivery(BasketContract $basket)
+	{
+		// Work out whether your delivery option has free delivery here
+		return false;
+	}
+
 	public function canAdd(BasketContract $basket)
 	{
 		// Work out whether you can add this delivery option here

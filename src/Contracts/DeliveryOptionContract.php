@@ -9,6 +9,7 @@ interface DeliveryOptionContract
 	public function getDescription();
 	public function getPrice();
 	public function getFreeDeliveryThreshold();
+    public function hasFreeDelivery(BasketContract $basket);
 
 	public function canAdd(BasketContract $basket);
 	public static function loadInstance($id);
