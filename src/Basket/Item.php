@@ -134,10 +134,10 @@ class Item implements BasketItemContract
 		if ($promo_code && ($promo_code->getDiscountType() == 'percentage'))
 		{
 			return new MoneyFormatter(
-				$this->percentageDiscountedPrice(
+				round($this->percentageDiscountedPrice(
 					$this->getPrice()->getBasePrice(),
 					$promo_code->getDiscount()
-				) * $this->getQuantity()
+				) * $this->getQuantity())
 			);
 		}
 
@@ -146,19 +146,7 @@ class Item implements BasketItemContract
 
 	public function getDiscountTotal()
 	{
-		$promo_code = $this->basket->getPromoCode();
-
-		if ($promo_code && ($promo_code->getDiscountType() == 'percentage'))
-		{
-			return new MoneyFormatter(
-				$this->calculatePercentageDiscount(
-					$this->getPrice()->getBasePrice(),
-					$promo_code->getDiscount()
-				) * $this->getQuantity()
-			);
-		}
-
-		return new MoneyFormatter(0);
+		return new MoneyFormatter($this->getPreDiscountsTotal()->getBasePrice() - $this->getTotal()->getBasePrice());
 	}
 
 	public static function createItemHash(BasketProductContract $product)
@@ -173,6 +161,6 @@ class Item implements BasketItemContract
 
 	protected function calculatePercentageDiscount($price, $percentage_discount)
 	{
-		return round(($percentage_discount / 100) * $price);
+		return ($percentage_discount / 100) * $price;
 	}
 }
