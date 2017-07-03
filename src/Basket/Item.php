@@ -114,12 +114,12 @@ class Item implements BasketItemContract
 
 	public function getVatTotal()
 	{
-		return new MoneyFormatter($this->vat_calculator->getVat($this->getTotal()->getBasePrice()));
+		return new MoneyFormatter(round($this->vat_calculator->getVat($this->getTotal()->getBasePrice())));
 	}
 
 	public function getNetTotal()
 	{
-		return new MoneyFormatter($this->vat_calculator->getWithoutVat($this->getTotal()->getBasePrice()));
+		return new MoneyFormatter(round($this->vat_calculator->getWithoutVat($this->getTotal()->getBasePrice())));
 	}
 
 	public function getPreDiscountsTotal()
