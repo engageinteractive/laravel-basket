@@ -311,7 +311,7 @@ class Basket implements BasketContract
 
 		foreach ($this->items as $item)
 		{
-			$total += $item->getVatTotal()->getBasePrice();
+			$total += $item->getUnformattedVatTotal();
 		}
 
 		$total += $this->vat_calculator->getVat($this->getDeliveryPrice()->getBasePrice());
@@ -325,10 +325,10 @@ class Basket implements BasketContract
 
 		foreach ($this->items as $item)
 		{
-			$total += $item->getNetTotal()->getBasePrice();
+			$total += $item->getUnformattedNetTotal();
 		}
 
-		return new MoneyFormatter($total);
+		return new MoneyFormatter(round($total));
 	}
 
 	public function getTotal()
