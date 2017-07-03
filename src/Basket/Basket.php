@@ -316,7 +316,7 @@ class Basket implements BasketContract
 
 		$total += $this->vat_calculator->getVat($this->getDeliveryPrice()->getBasePrice());
 
-		return new MoneyFormatter($total);
+		return new MoneyFormatter(round($total));
 	}
 
 	public function getNetTotal()
