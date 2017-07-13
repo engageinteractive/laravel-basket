@@ -157,7 +157,7 @@ class Basket implements BasketContract
 				$discount = $this->promo_code->getDiscountAmount($this);
 			}
 
-			if ($discount->getBasePrice() >= $this->getTotal()->getBasePrice())
+			if ($discount->getBasePrice() >= $this->getPreDiscountTotal()->getBasePrice())
 			{
 				return $this->getTotal();
 			}
@@ -338,6 +338,18 @@ class Basket implements BasketContract
 		foreach ($this->items as $item)
 		{
 			$total += $item->getTotal()->getBasePrice();
+		}
+
+		return new MoneyFormatter($total);
+	}
+
+	public function getPreDiscountTotal()
+	{
+		$total = 0;
+
+		foreach ($this->items as $item)
+		{
+			$total += $item->getPreDiscountTotal()->getBasePrice();
 		}
 
 		return new MoneyFormatter($total);
