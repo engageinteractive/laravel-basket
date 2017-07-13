@@ -349,7 +349,7 @@ class Basket implements BasketContract
 
 		foreach ($this->items as $item)
 		{
-			$total += $item->getPreDiscountTotal()->getBasePrice();
+			$total += $item->getPreDiscountsTotal()->getBasePrice();
 		}
 
 		return new MoneyFormatter($total);
