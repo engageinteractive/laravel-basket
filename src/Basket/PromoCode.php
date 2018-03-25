@@ -3,6 +3,7 @@
 namespace ChrisWillerton\LaravelBasket\Basket;
 
 use ChrisWillerton\LaravelBasket\Contracts\PromoCodeContract;
+use ChrisWillerton\LaravelBasket\Contracts\BasketItemContract;
 use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
 use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
 
@@ -35,14 +36,9 @@ class PromoCode
 		return $this->instance->getDiscount();
 	}
 
-	public function getDiscountAmount(BasketContract $basket)
+	public function getItemDiscountAmount(BasketItemContract $item, BasketContract $basket)
 	{
-		return new MoneyFormatter($this->instance->getDiscountAmount($basket));
-	}
-
-	public function getDiscountType()
-	{
-		return $this->instance->getDiscountType();
+		return new MoneyFormatter($this->instance->getItemDiscountAmount($item, $basket));
 	}
 
 	public function hasFreeDelivery(BasketContract $basket)

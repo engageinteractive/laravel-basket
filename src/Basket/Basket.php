@@ -141,21 +141,15 @@ class Basket implements BasketContract
 
 		if ($promo_code)
 		{
-			if ($promo_code->getDiscountType() == 'percentage')
-			{
-				$discount = 0;
+			$running_discount = 0;
 
-				array_walk($this->items, function($item) use (&$discount)
-				{
-					$discount += $item->getDiscountTotal()->getBasePrice();
-				});
-
-				$discount = new MoneyFormatter($discount);
-			}
-			else
+			// Work out item discounts first
+			foreach ($this->getItems() as $item)
 			{
-				$discount = $this->promo_code->getDiscountAmount($this);
+				$running_discount += $this->promo_code->getItemDiscountAmount($item, $this)->getBasePrice();
 			}
+
+			$discount = new MoneyFormatter($running_discount);
 
 			if ($discount->getBasePrice() >= $this->getPreDiscountTotal()->getBasePrice())
 			{
@@ -309,12 +303,14 @@ class Basket implements BasketContract
 	{
 		$total = 0;
 
+		// Calculate delivery VAT first
+		$total += (new VatCalculator(config('laravel-basket.delivery_vat_rate')))->getVat($this->getDeliveryPrice()->getBasePrice());
+
+		// Retrieve VAT for each item
 		foreach ($this->items as $item)
 		{
 			$total += $item->getUnformattedVatTotal();
 		}
-
-		$total += (new VatCalculator(config('laravel-basket.delivery_vat_rate')))->getVat($this->getDeliveryPrice()->getBasePrice());
 
 		return new MoneyFormatter(round($total));
 	}
@@ -361,17 +357,6 @@ class Basket implements BasketContract
 
 		// Start with all items
 		$grand_total += $this->getTotal()->getBasePrice();
-
-		$promo_code = $this->getPromoCode();
-
-		if ($promo_code)
-		{
-			if ($promo_code->getDiscountType() !== 'percentage')
-			{
-				// Remove any discounts
-				$grand_total -= $this->getDiscount()->getBasePrice();
-			}
-		}
 
 		// Add any delivery costs
 		$grand_total += $this->getDeliveryPrice()->getBasePrice();

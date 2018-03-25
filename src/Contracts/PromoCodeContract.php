@@ -8,9 +8,7 @@ interface PromoCodeContract
 	public function getCode();
 	public function getDescription();
 
-	public function getDiscount();
-	public function getDiscountAmount(BasketContract $basket);
-	public function getDiscountType();
+	public function getItemDiscountAmount(BasketItemContract $item, BasketContract $basket);
 	public function hasFreeDelivery(BasketContract $basket);
 
 	public function canAdd(BasketContract $basket);
