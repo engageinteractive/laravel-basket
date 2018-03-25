@@ -10,6 +10,8 @@ return [
 
     'vat_rate' => 20,
 
+    'delivery_vat_rate' => 20,
+
     'cookie_key' => 'laravel_basket',
 
     'lifetime' => 259200, // How many seconds? Defaults to 3 days

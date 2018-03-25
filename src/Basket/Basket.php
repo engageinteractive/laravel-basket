@@ -314,7 +314,7 @@ class Basket implements BasketContract
 			$total += $item->getUnformattedVatTotal();
 		}
 
-		$total += $this->vat_calculator->getVat($this->getDeliveryPrice()->getBasePrice());
+		$total += (new VatCalculator(config('laravel-basket.delivery_vat_rate')))->getVat($this->getDeliveryPrice()->getBasePrice());
 
 		return new MoneyFormatter(round($total));
 	}
