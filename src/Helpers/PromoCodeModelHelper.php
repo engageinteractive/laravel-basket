@@ -26,26 +26,6 @@ trait PromoCodeModelHelper
 		return $this->discount;
 	}
 
-	public function getDiscountAmount(BasketContract $basket)
-	{
-		if ($this->getDiscountType() == 'percentage')
-		{
-			return $this->calculatePercentageDiscount($basket, $this->getDiscount());
-		}
-
-		if ($this->getDiscountType() == 'fixed')
-		{
-			return $this->calculateFixedDiscount($basket);
-		}
-
-		return 0;
-	}
-
-	public function getDiscountType()
-	{
-		return $this->discount_type;
-	}
-
 	public function hasFreeDelivery(BasketContract $basket)
 	{
 		return $this->free_delivery ? true : false;
@@ -64,14 +44,8 @@ trait PromoCodeModelHelper
 		return static::find($id);
 	}
 
-	protected function calculatePercentageDiscount(BasketContract $basket, $percentage)
+	protected function calculatePercentageDiscount($total, $percentage)
 	{
-		$basket_total = $basket->getTotal()->getBasePrice();
-		return round(($percentage / 100) * $basket_total);
-	}
-
-	protected function calculateFixedDiscount(BasketContract $basket)
-	{
-		return $this->getDiscount();
+		return round(($percentage / 100) * $total);
 	}
 }
