@@ -408,6 +408,21 @@ class Basket implements BasketContract
 
 		if ($basket)
 		{
+			foreach ($basket['items'] as $hash => $item)
+			{
+				$classname = $item['classname'];
+				$loaded_item = $classname::loadInstance($item['id']);
+
+				if ($loaded_item)
+				{
+					$this->silentTry('addItem', [
+						$loaded_item,
+						$item['quantity'],
+						$item['created_at']
+					]);
+				}
+			}
+			
 			if ($basket['delivery_option'])
 			{
 				$classname = $basket['delivery_option']['classname'];
@@ -427,21 +442,6 @@ class Basket implements BasketContract
 				if ($loaded_code)
 				{
 					$this->silentTry('setPromoCode', $loaded_code);
-				}
-			}
-
-			foreach ($basket['items'] as $hash => $item)
-			{
-				$classname = $item['classname'];
-				$loaded_item = $classname::loadInstance($item['id']);
-
-				if ($loaded_item)
-				{
-					$this->silentTry('addItem', [
-						$loaded_item,
-						$item['quantity'],
-						$item['created_at']
-					]);
 				}
 			}
 		}
