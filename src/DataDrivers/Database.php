@@ -53,6 +53,19 @@ class Database implements DataDriverContract
 		return [];
 	}
 
+	public function getGiftCardData()
+	{
+		$basket_key = $this->getCookie();
+
+		if ($basket_key)
+		{
+			$storage = BasketStorage::where('key', $basket_key)->first();
+			return $storage ? json_decode($storage->gift_card_payload, true) : [];
+		}
+
+		return [];
+	}
+
 	public function setData($data)
 	{
 		$basket_key = $this->getCookie();
