@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Exceptions;
+namespace Engage\LaravelBasket\Exceptions;
 
 use Exception;
 

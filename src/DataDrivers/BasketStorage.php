@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\DataDrivers;
+namespace Engage\LaravelBasket\DataDrivers;
 
 use Illuminate\Database\Eloquent\Model;
 

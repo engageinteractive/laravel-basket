@@ -1,10 +1,10 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Basket;
+namespace Engage\LaravelBasket\Basket;
 
-use ChrisWillerton\LaravelBasket\Contracts\GiftCardCodeContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
-use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
+use Engage\LaravelBasket\Contracts\GiftCardCodeContract;
+use Engage\LaravelBasket\Contracts\BasketContract;
+use Engage\LaravelBasket\Helpers\MoneyFormatter;
 
 class GiftCardCode
 {

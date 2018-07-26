@@ -1,17 +1,17 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Basket;
+namespace Engage\LaravelBasket\Basket;
 
-use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
-use ChrisWillerton\LaravelBasket\Contracts\DataDriverContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketProductContract;
-use ChrisWillerton\LaravelBasket\Contracts\DeliveryOptionContract;
-use ChrisWillerton\LaravelBasket\Contracts\PromoCodeContract;
-use ChrisWillerton\LaravelBasket\Contracts\GiftCardCodeContract;
-use ChrisWillerton\LaravelBasket\Exceptions\BasketException;
-use ChrisWillerton\LaravelBasket\Helpers\VatCalculator;
-use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
-use ChrisWillerton\LaravelBasket\Helpers\QuantityValidator;
+use Engage\LaravelBasket\Contracts\BasketContract;
+use Engage\LaravelBasket\Contracts\DataDriverContract;
+use Engage\LaravelBasket\Contracts\BasketProductContract;
+use Engage\LaravelBasket\Contracts\DeliveryOptionContract;
+use Engage\LaravelBasket\Contracts\PromoCodeContract;
+use Engage\LaravelBasket\Contracts\GiftCardCodeContract;
+use Engage\LaravelBasket\Exceptions\BasketException;
+use Engage\LaravelBasket\Helpers\VatCalculator;
+use Engage\LaravelBasket\Helpers\MoneyFormatter;
+use Engage\LaravelBasket\Helpers\QuantityValidator;
 
 class Basket implements BasketContract
 {

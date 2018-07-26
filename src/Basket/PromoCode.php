@@ -1,11 +1,11 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Basket;
+namespace Engage\LaravelBasket\Basket;
 
-use ChrisWillerton\LaravelBasket\Contracts\PromoCodeContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketItemContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
-use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
+use Engage\LaravelBasket\Contracts\PromoCodeContract;
+use Engage\LaravelBasket\Contracts\BasketItemContract;
+use Engage\LaravelBasket\Contracts\BasketContract;
+use Engage\LaravelBasket\Helpers\MoneyFormatter;
 
 class PromoCode
 {

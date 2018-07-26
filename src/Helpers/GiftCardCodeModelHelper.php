@@ -1,8 +1,8 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Helpers;
+namespace Engage\LaravelBasket\Helpers;
 
-use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
+use Engage\LaravelBasket\Contracts\BasketContract;
 
 trait GiftCardCodeModelHelper
 {

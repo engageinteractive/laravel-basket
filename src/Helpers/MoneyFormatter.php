@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Helpers;
+namespace Engage\LaravelBasket\Helpers;
 
 class MoneyFormatter
 {

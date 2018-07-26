@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Middleware;
+namespace Engage\LaravelBasket\Middleware;
 
 use Closure;
 

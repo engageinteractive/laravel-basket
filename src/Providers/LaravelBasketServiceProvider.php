@@ -1,10 +1,10 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Providers;
+namespace Engage\LaravelBasket\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use ChrisWillerton\LaravelBasket\DataDrivers\Database;
-use ChrisWillerton\LaravelBasket\Basket\Basket;
+use Engage\LaravelBasket\DataDrivers\Database;
+use Engage\LaravelBasket\Basket\Basket;
 
 class LaravelBasketServiceProvider extends ServiceProvider
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Contracts;
+namespace Engage\LaravelBasket\Contracts;
 
 interface DeliveryOptionContract
 {

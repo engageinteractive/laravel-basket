@@ -1,8 +1,8 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\DataDrivers;
+namespace Engage\LaravelBasket\DataDrivers;
 
-use ChrisWillerton\LaravelBasket\Contracts\DataDriverContract;
+use Engage\LaravelBasket\Contracts\DataDriverContract;
 
 class Database implements DataDriverContract
 {

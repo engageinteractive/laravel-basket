@@ -1,11 +1,11 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Contracts;
+namespace Engage\LaravelBasket\Contracts;
 
-use ChrisWillerton\LaravelBasket\Contracts\DataDriverContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketProductContract;
-use ChrisWillerton\LaravelBasket\Contracts\DeliveryOptionContract;
-use ChrisWillerton\LaravelBasket\Contracts\PromoCodeContract;
+use Engage\LaravelBasket\Contracts\DataDriverContract;
+use Engage\LaravelBasket\Contracts\BasketProductContract;
+use Engage\LaravelBasket\Contracts\DeliveryOptionContract;
+use Engage\LaravelBasket\Contracts\PromoCodeContract;
 
 interface BasketContract
 {

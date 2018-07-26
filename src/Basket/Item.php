@@ -1,13 +1,13 @@
 <?php
 
-namespace ChrisWillerton\LaravelBasket\Basket;
+namespace Engage\LaravelBasket\Basket;
 
-use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketItemContract;
-use ChrisWillerton\LaravelBasket\Contracts\BasketProductContract;
-use ChrisWillerton\LaravelBasket\Helpers\VatCalculator;
-use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
-use ChrisWillerton\LaravelBasket\Helpers\QuantityValidator;
+use Engage\LaravelBasket\Contracts\BasketContract;
+use Engage\LaravelBasket\Contracts\BasketItemContract;
+use Engage\LaravelBasket\Contracts\BasketProductContract;
+use Engage\LaravelBasket\Helpers\VatCalculator;
+use Engage\LaravelBasket\Helpers\MoneyFormatter;
+use Engage\LaravelBasket\Helpers\QuantityValidator;
 
 class Item implements BasketItemContract
 {
