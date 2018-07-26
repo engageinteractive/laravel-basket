@@ -3,12 +3,14 @@
 namespace ChrisWillerton\LaravelBasket\Basket;
 
 use ChrisWillerton\LaravelBasket\Contracts\GiftCardCodeContract;
+use ChrisWillerton\LaravelBasket\Contracts\BasketContract;
+use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
 
 class GiftCardCode
 {
 	public $instance;
 
-	public function __construct($code)
+	public function __construct(GiftCardCodeContract $code)
 	{
 		$this->instance = $code;
 	}
@@ -27,4 +29,20 @@ class GiftCardCode
 	{
 		return $this->instance->getBalance();
 	}
+
+	public function getDiscount()
+	{
+		return $this->instance->getDiscount();
+	}
+
+	public function getBalanceRemaining()
+	{
+		return $this->instance->getBalanceRemaining();
+	}
+
+	public function updateBalance($balance)
+	{
+		return $this->instance->updateBalance($balance);
+	}
+
 }

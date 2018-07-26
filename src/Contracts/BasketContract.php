@@ -25,6 +25,11 @@ interface BasketContract
 	public function getPromoCode();
 	public function setPromoCode(PromoCodeContract $promo_code);
 	public function removePromoCode();
+
+	public function getGiftCardCode();
+	public function setGiftCardCode(GiftCardCodeContract $gift_card_code);
+	public function removeGiftCardCode();
+	
 	public function getDiscount();
 
 	public function addItem(BasketProductContract $item, $quantity = 1, $added = false);

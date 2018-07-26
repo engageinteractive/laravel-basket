@@ -7,6 +7,7 @@ use ChrisWillerton\LaravelBasket\Contracts\DataDriverContract;
 use ChrisWillerton\LaravelBasket\Contracts\BasketProductContract;
 use ChrisWillerton\LaravelBasket\Contracts\DeliveryOptionContract;
 use ChrisWillerton\LaravelBasket\Contracts\PromoCodeContract;
+use ChrisWillerton\LaravelBasket\Contracts\GiftCardCodeContract;
 use ChrisWillerton\LaravelBasket\Exceptions\BasketException;
 use ChrisWillerton\LaravelBasket\Helpers\VatCalculator;
 use ChrisWillerton\LaravelBasket\Helpers\MoneyFormatter;
@@ -23,6 +24,7 @@ class Basket implements BasketContract
 	protected $items = [];
 	protected $delivery_option = false;
 	protected $promo_code = false;
+	protected $gift_card_code = false;
 	protected $errors = [];
 	protected $event_namespace;
 
@@ -125,12 +127,42 @@ class Basket implements BasketContract
 			$this->promo_code = new PromoCode($promo_code);
 		}
 
+		if ($this->getGiftCardCode()) {
+			$this->removeGiftCardCode();
+		}
+
 		return $this;
 	}
 
 	public function removePromoCode()
 	{
 		$this->promo_code = false;
+
+		return $this;
+	}
+
+	public function getGiftCardCode()
+	{
+		return $this->gift_card_code;
+	}
+
+	public function setGiftCardCode(GiftCardCodeContract $gift_card_code)
+	{
+		if ($this->silentTry('canAdd', $this, $gift_card_code))
+		{
+			$this->gift_card_code = new GiftCardCode($gift_card_code);
+		}
+
+		if ($this->getGiftCardCode()) {
+			$this->removePromoCode();
+		}
+
+		return $this;
+	}
+
+	public function removeGiftCardCode()
+	{
+		$this->gift_card_code = false;
 
 		return $this;
 	}
@@ -336,6 +368,11 @@ class Basket implements BasketContract
 			$total += $item->getTotal()->getBasePrice();
 		}
 
+		if ($this->gift_card_code)
+		{
+			$total = ($total - $this->gift_card_code->getDiscount()->getBasePrice());
+		}
+		
 		return new MoneyFormatter($total);
 	}
 
@@ -374,6 +411,7 @@ class Basket implements BasketContract
 		$this->emptyItems();
 		$this->delivery_option = false;
 		$this->promo_code = false;
+		$this->gift_card_code = false;
 
 		$this->driver->cleanupData();
 
@@ -444,6 +482,17 @@ class Basket implements BasketContract
 					$this->silentTry('setPromoCode', $loaded_code);
 				}
 			}
+
+			if ($basket['gift_card_code'])
+			{
+				$classname = $basket['gift_card_code']['classname'];
+				$loaded_code = $classname::loadInstance($basket['gift_card_code']['id']);
+
+				if ($loaded_code)
+				{
+					$this->silentTry('setGiftCardCode', $loaded_code);
+				}
+			}
 		}
 
 		event($this->event_namespace . '.retrieve', $this);
@@ -456,7 +505,8 @@ class Basket implements BasketContract
 		$basket = [
 			'items' => [],
 			'delivery_option' => [],
-			'promo_code' => []
+			'promo_code' => [],
+			'gift_card_code' => []
 		];
 
 		if ($this->delivery_option)
@@ -472,6 +522,14 @@ class Basket implements BasketContract
 			$basket['promo_code'] = [
 				'id' => $this->promo_code->getId(),
 				'classname' => get_class($this->promo_code->instance)
+			];
+		}
+
+		if ($this->gift_card_code)
+		{
+			$basket['gift_card_code'] = [
+				'id' => $this->gift_card_code->getId(),
+				'classname' => get_class($this->gift_card_code->instance)
 			];
 		}
 
