@@ -1,11 +1,11 @@
 {
-    "name": "chriswillerton/laravel-basket",
+    "name": "engage/laravel-basket",
     "description": "Basket package for Laravel",
     "keywords": ["laravel", "basket", "ecommerce"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Chris Willerton"
+            "name": "Engage Interactive"
         }
     ],
     "require": {
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ChrisWillerton\\LaravelBasket\\": "src/"
+            "Engage\\LaravelBasket\\": "src/"
         }
     },
     "minimum-stability": "stable"
