@@ -367,11 +367,6 @@ class Basket implements BasketContract
 		{
 			$total += $item->getTotal()->getBasePrice();
 		}
-
-		if ($this->gift_card_code)
-		{
-			$total = ($total - $this->gift_card_code->getDiscount()->getBasePrice());
-		}
 		
 		return new MoneyFormatter($total);
 	}
@@ -397,6 +392,11 @@ class Basket implements BasketContract
 
 		// Add any delivery costs
 		$grand_total += $this->getDeliveryPrice()->getBasePrice();
+
+		if ($this->gift_card_code)
+		{
+			$grand_total = ($grand_total - $this->gift_card_code->getDiscount()->getBasePrice());
+		}
 
 		return new MoneyFormatter($grand_total);
 	}
