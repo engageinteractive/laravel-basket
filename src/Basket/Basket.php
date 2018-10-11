@@ -483,7 +483,7 @@ class Basket implements BasketContract
 				}
 			}
 
-			if ($basket['gift_card_code'])
+			if (array_get($basket, 'gift_card_code.classname')) 
 			{
 				$classname = $basket['gift_card_code']['classname'];
 				$loaded_code = $classname::loadInstance($basket['gift_card_code']['id']);
